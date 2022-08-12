@@ -1,12 +1,5 @@
 # Desafio #1
 
-## GIT
-user: news-rules
-pass: YLJzVD9qJDnqKN-MALpT
-
-git clone https://gitlabee.dt.renault.com/jefferson.moura/node-start.git
-
-
 Vamos criar um controlador de voos!
 
 ## Necessidades
