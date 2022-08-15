@@ -8,8 +8,9 @@ router.get('/list', async (req: any, res: any) => {
     res.json({ msg: 'List De passageiros indisponivel'})
 })
 
-router.get('/list/findOneByID=:id', async (req: { params: any; }, res: { json: (arg0: { msg: string; }) => void; }) => {
+router.get('/list/findOneByID=:id', async (req: { params: any; }, res: any) => {
     const params = req.params;
+    
     res.json({ msg: `Passageiro numero ${params.id} não encontrado` })
 })
 
