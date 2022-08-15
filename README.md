@@ -8,15 +8,16 @@ Precisamos entender em tempo real qual a posição e rota de alguns aviões em n
 
 ## Premissas:
 
-> Cada passageiro tem um destino e uma partida;\n
-> Só aceitamos passageiros com mais de 10 anos;\n
-> Só aceitamos passageiros com nacionalidade brasileira;\n
-> Só aceitamos passageiros com visto para o brasil;\n
-> Casais tem 10% de desconto;\n
-> Cada avião comporta somente 8 passageiros;\n
-> Cada avião faz obrigatóriamente 2 paradas para chegar ao seu destino;\n
-> O tempo entre paradas é de 1h30;\n
-
+```
+Cada passageiro tem um destino e uma partida;
+Só aceitamos passageiros com mais de 10 anos;
+Só aceitamos passageiros com nacionalidade brasileira;
+Só aceitamos passageiros com visto para o brasil;
+Casais tem 10% de desconto;
+Cada avião comporta somente 8 passageiros;
+Cada avião faz obrigatóriamente 2 paradas para chegar ao seu destino;
+O tempo entre paradas é de 1h30;
+```
 
 ## Sobre as rotas:
 
