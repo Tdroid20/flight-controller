@@ -8,6 +8,7 @@ Precisamos entender em tempo real qual a posição e rota de alguns aviões em n
 
 ## Premissas:
 
+```
 Cada passageiro tem um destino e uma partida;
 Só aceitamos passageiros com mais de 10 anos;
 Só aceitamos passageiros com nacionalidade brasileira;
@@ -16,19 +17,20 @@ Casais tem 10% de desconto;
 Cada avião comporta somente 8 passageiros;
 Cada avião faz obrigatóriamente 2 paradas para chegar ao seu destino;
 O tempo entre paradas é de 1h30;
-
+```
 
 ## Sobre as rotas:
 
 As rotas que utilizamos são:
-
-[  SP  ] [  PR  ] [  SC  ] [  RS  ]
-[  SP  ] [  RJ  ] [  ES  ] [  BA  ]
-[  SP  ] [  RJ  ] [  MG  ] [  TO  ]
-[  RR  ] [  AM  ] [  RO  ] [  MT  ]
-[  AP  ] [  MA  ] [  AL  ] [  SE  ]
-[  PR  ] [  GO  ] [  TO  ] [  CE  ]
-
+```diff
+[  INICIO  ] [  PARADA  ]  [  PARADA 2 ]  [   FINAL  ]
+[    SP    ] [    PR    ]  [    SC     ]  [    RS    ]
+[    SP    ] [    RJ    ]  [    ES     ]  [    BA    ]
+[    SP    ] [    RJ    ]  [    MG     ]  [    TO    ]
+[    RR    ] [    AM    ]  [    RO     ]  [    MT    ]
+[    AP    ] [    MA    ]  [    AL     ]  [    SE    ]
+[    PR    ] [    GO    ]  [    TO     ]  [    CE    ]
+```
 
 ## Sobre a declaração de voo
 
