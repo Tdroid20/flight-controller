@@ -2,6 +2,7 @@ const router = require('express').Router();
 import { Request, Response } from 'express';
 import { METHODS } from 'http';
 import { Http2SecureServer } from 'http2';
+import { idText } from 'typescript';
 import Passengers from '../../controllers/passenger'
 
 /*
@@ -26,9 +27,8 @@ router.get('/list/findOneByID=:id', async (req: Request, res: Response) => {
 
 router.post('/register', (req: Request, res: Response) => {
     const data= req.body[0];
-    console.log(data)
-
-    res.send(`Não consegui adicionar o(a) ${data.name} de ${data.age} anos idade pois ainda não tenho uma database criada. Tente novamente em breve.`)
+    
+    Passengers.create(data, req, res)
 });
 
 /*
@@ -47,10 +47,13 @@ router.put('/edit/findOneByID=:id', (req: Request, res: Response) => {
 */
 
 router.delete('/delete/findOneByID=:id', (req: Request, res: Response) => {
-    const data= req.params;
-    console.log(data)
+    const data: any = req.params;
+    Passengers.delete(data, req, res)
+});
 
-    res.send(`Não consegui deletar o passageiro ${data.id} pois ainda não tenho uma database criada. Tente novamente em breve.`)
+router.delete('/delete/all', (req: Request, res: Response) => {
+    const data: any = req.params;
+    Passengers.deleteAll(req, res)
 });
 
 export default router;
