@@ -1,24 +1,30 @@
 const router = require('express').Router();
+import { Request, Response } from 'express';
+import { METHODS } from 'http';
+import { Http2SecureServer } from 'http2';
+import Passengers from '../../controllers/passenger'
 
 /*
 =============================// GET //==============================
 */
 
-router.get('/list', async (req: any, res: any) => {
-    res.json({ msg: 'List De passageiros indisponivel'})
+router.get('/list', async (req: Request, res: Response) => {
+    Passengers.getAll(req, res)
 })
 
-router.get('/list/findOneByID=:id', async (req: { params: any; }, res: any) => {
-    const params = req.params;
-    
-    res.json({ msg: `Passageiro numero ${params.id} não encontrado` })
+router.get('/list/findOneByID=:id', async (req: Request, res: Response) => {
+    const params: any = req.params;
+    console.log(params.id)
+    Passengers.findOneById(params.id, req, res)
 })
+
+
 
 /*
 =============================// POST //==============================
 */
 
-router.post('/register', (req: any, res: any) => {
+router.post('/register', (req: Request, res: Response) => {
     const data= req.body[0];
     console.log(data)
 
@@ -29,7 +35,7 @@ router.post('/register', (req: any, res: any) => {
 =============================// PUT //==============================
 */
 
-router.put('/edit/findOneByID=:id', (req: any, res: any) => {
+router.put('/edit/findOneByID=:id', (req: Request, res: Response) => {
     const data= req.params;
     console.log(data)
 
@@ -40,7 +46,7 @@ router.put('/edit/findOneByID=:id', (req: any, res: any) => {
 =============================// DELETE //==============================
 */
 
-router.delete('/delete/findOneByID=:id', (req: any, res: any) => {
+router.delete('/delete/findOneByID=:id', (req: Request, res: Response) => {
     const data= req.params;
     console.log(data)
 
