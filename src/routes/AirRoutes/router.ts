@@ -1,19 +1,19 @@
 const router = require('express').Router();
 import { Request, Response } from 'express';
-import Passengers from '../../controllers/passenger'
+import Routes from '../../controllers/routerController'
 
 /*
 =============================// GET //==============================
 */
 
 router.get('/list', async (req: Request, res: Response) => {
-    Passengers.getAll(req, res)
+    Routes.getAll(req, res)
 })
 
 router.get('/list/findOneByID=:id', async (req: Request, res: Response) => {
     const params: any = req.params;
     console.log(params.id)
-    Passengers.findOneById(params.id, req, res)
+    Routes.findOneById(params.id, req, res)
 })
 
 
@@ -23,9 +23,9 @@ router.get('/list/findOneByID=:id', async (req: Request, res: Response) => {
 */
 
 router.post('/register', (req: Request, res: Response) => {
-    const data= req.body[0];
+    const data= req.body;
     
-    Passengers.create(data, req, res)
+    Routes.create(data, req, res)
 });
 
 /*
@@ -45,11 +45,11 @@ router.put('/edit/findOneByID=:id', (req: Request, res: Response) => {
 
 router.delete('/delete/findOneByID=:id', (req: Request, res: Response) => {
     const data: any = req.params;
-    Passengers.delete(data, req, res)
+    Routes.delete(data, req, res)
 });
 
 router.delete('/delete/all', (req: Request, res: Response) => {
-    Passengers.deleteAll(req, res)
+    Routes.deleteAll(req, res)
 });
 
 export default router;

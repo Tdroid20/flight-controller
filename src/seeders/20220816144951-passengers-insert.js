@@ -4,6 +4,7 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     
       await queryInterface.bulkInsert('passengers', [{
+        id: 1,
         name: 'Richard Pereira',
         age: 16,
         visa: 'Brasil',
@@ -11,15 +12,8 @@ module.exports = {
         isMarried: false,
         createdAt: new Date(),
         updatedAt: new Date()
-     }, {
-        name: 'Enzo Gabriel',
-        age: 10,
-        visa: 'Brasil',
-        nationality: 'Brasileiro',
-        isMarried: false,
-        createdAt: new Date(),
-        updatedAt: new Date()
-     }, {
+      }, {
+        id: 2,
       name: 'Igor Santos',
       age: 28,
       visa: 'Brasil',

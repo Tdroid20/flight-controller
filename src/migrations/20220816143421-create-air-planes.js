@@ -1,32 +1,22 @@
 'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('passengers', {
+    await queryInterface.createTable('airPlanes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
+      passangers: {
+        type: Sequelize.INTEGER
       },
-      age: {
+      router_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      visa: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      nationality: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      isMarried: {
-        type: Sequelize.BOOLEAN,
-        allowNull: false,
+        references: {         // User belongsTo Company 1:1
+          model: 'Routes',
+          key: 'id',
+        }
       },
       createdAt: {
         allowNull: false,
@@ -39,6 +29,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('passengers');
+    await queryInterface.dropTable('airPlanes');
   }
 };

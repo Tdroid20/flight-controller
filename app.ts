@@ -17,19 +17,19 @@ const connectDB = async () => {
     const sequelize = new Sequelize('flight-controller', 'postgres', pg_passwd, {
         host: 'localhost',
         dialect: 'postgres'
-    })
+    });
 
     try {
         await sequelize.authenticate();
-        console.log(c.green('Connection has been established successfully.'));
+        console.log(c.green('[DataBase] - Connection has been established successfully.'));
       } catch (error) {
-        console.log(c.red('Unable to connect to the database:'), error);
+        console.log(c.red('[app.ts] - Unable to connect to the database:'), error);
       }
 };
 
 connectDB()
 
-import routers from './src/routes/routes'
+import routers from './src/routes/routes';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -38,7 +38,7 @@ app.use(bodyParser.json());
 app.use('/api', routers);
 
 app.get('/', (req: Request, res: Response) => {
-    return res.send('Controle de voos Online!')
+    return res.send('Controle de voos Online!');
 })
 
 

@@ -3,27 +3,23 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class passengers extends Model {
+  class airPlanes extends Model {
     static associate(models) {
     }
   }
-  passengers.init({
-    name: DataTypes.STRING,
-    age: DataTypes.INTEGER,
-    visa: DataTypes.STRING,
-    nationality: DataTypes.STRING,
-    isMarried: DataTypes.BOOLEAN,
-    gotTo: {
+  airPlanes.init({
+    passangers: DataTypes.NUMBER,
+    router_id: {
       type: DataTypes.NUMBER,
       references: {         // User belongsTo Company 1:1
         model: 'Routes',
         key: 'id',
-        field: 'airplane_id'
+        field: 'router_id'
       }
     }
   }, {
     sequelize,
-    modelName: 'passengers',
+    modelName: 'airPlanes',
   });
-  return passengers;
+  return airPlanes;
 };
