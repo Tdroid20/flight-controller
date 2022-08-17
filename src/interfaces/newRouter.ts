@@ -1,4 +1,4 @@
-export default interface NewPassenger {
+export default interface NewPassenger extends Array<NewPassenger> {
     start: String,
     firstStop: String,
     secondStop: String,

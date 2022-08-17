@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import { stringify } from 'querystring';
 import newRouter  from '../interfaces/newRouter';
 
 
@@ -16,9 +15,9 @@ class Routes {
         }
 
         static async findOneById(
-            id: Number, 
-            req: Request, 
-            res: Response, 
+            id: Number,
+            req: Request,
+            res: Response,
             ): Promise<any> {
             const search = await db.Routes.findByPk(id);
             if(!search) {
@@ -28,12 +27,17 @@ class Routes {
         }
 
         static async create(
-            _newRegister: newRouter, 
-            req: Request, 
+            _newRegister: newRouter,
+            req: Request,
             res: Response
             ): Promise<any> {
                 try {
-                    let { start, firstStop, secondStop, end } =  _newRegister
+                    let { start, firstStop, secondStop, end } =  Object.assign({}, _newRegister)
+
+                    if(typeof(_newRegister) != 'object') {
+                        console.log(`O Tipo especificado não foi um Objeto`);
+                        return res.status(501).send('O Tipo especificado não é um Objeto');
+                    }
 
                     let getAllInDb: Array<object> = await db.Routes.findAll()
                     
@@ -49,7 +53,7 @@ class Routes {
 
                     await db.Routes.create(NewRegister, req, res)
 
-                    res.status(200).send(`a Rota com destino ${end} foi registrada`)
+                    res.status(200).json(Object.assign({}, _newRegister))
 
                 } catch (error: any) {
                     console.log(error)
