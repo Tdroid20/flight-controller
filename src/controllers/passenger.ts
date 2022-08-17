@@ -37,10 +37,10 @@ class Routes {
             ): Promise<any> {
                 try {
 
-                    let { name, age, visa, nationality, isMarried } =  _newRegister
+                    let { name, age, visa, nationality, goTo, isMarried } =  Object.assign({}, _newRegister)
 
                     let getAllInDb: Array<object> = await db.passengers.findAll()
-                    
+    
                     
                     let NewRegister = {
                         id: getAllInDb.length + 1,
@@ -49,9 +49,10 @@ class Routes {
                         visa,
                         nationality,
                         isMarried,
+                        goTo,
                         createdAt: new Date(),
                         updatedAt: new Date()
-                        }
+                    }
 
                     await db.passengers.create(NewRegister, req, res)
 
@@ -60,6 +61,7 @@ class Routes {
                 } catch (error: any) {
                     console.log(error.parent.code)
                     if(error.parent.code === '23502') return res.status(500).json(`Você o deixou campo ${error.parent.column} vazio.`)
+                    console.log(error)
                     res.status(500).json(error)
                 }
             }

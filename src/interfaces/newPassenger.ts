@@ -3,5 +3,6 @@ export default interface NewPassenger {
     age: number,
     visa: String,
     nationality: String,
+    goTo: Number,
     isMarried: Boolean
 }

@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     visa: DataTypes.STRING,
     nationality: DataTypes.STRING,
     isMarried: DataTypes.BOOLEAN,
-    gotTo: {
+    goTo: {
       type: DataTypes.NUMBER,
       references: {         // User belongsTo Company 1:1
         model: 'Routes',
