@@ -3,18 +3,51 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     
      await queryInterface.createTable('passengers', { 
-      id: Sequelize.INTEGER,
-      name: Sequelize.STRING,
-      age: Sequelize.INTEGER,
-      visa: Sequelize.STRING,
-      nationality: Sequelize.STRING,
-      isMarried: Sequelize.BOOLEAN,
-      goTo: {
+      id: {
+        type: Sequelize.UUID,
+        primaryKey: true,
+        allowNull: false
+      },
+      d: {
+        type: Sequelize.UUID,
+        primaryKey: true,
+        allowNull: false
+      },
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      age: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Routes',
-          key: 'id',
-        }
+        allowNull: false
+      },
+      visa: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      nationality: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      isMarried: {
+        type: Sequelize.BOOLEAN,
+        allowNull:  false
+      },
+      cpf: {
+        type: Sequelize.STRING(11),
+        allowNull: false
+      },
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      startIn: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
+      endsIn: {
+        type: Sequelize.STRING,
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

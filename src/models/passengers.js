@@ -14,11 +14,42 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
       allowNull: false
     },
-    name: DataTypes.STRING,
-    age: DataTypes.INTEGER,
-    visa: DataTypes.STRING,
-    nationality: DataTypes.STRING,
-    isMarried: DataTypes.BOOLEAN
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    age: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    visa: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    nationality: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    isMarried: {
+      type: DataTypes.BOOLEAN,
+      allowNull:  false
+    },
+    cpf: {
+      type: DataTypes.STRING(11),
+      allowNull: false
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    startIn: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    endsIn: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'passengers',

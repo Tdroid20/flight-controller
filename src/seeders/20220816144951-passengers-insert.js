@@ -9,6 +9,8 @@ module.exports = {
         visa: 'Brasil',
         nationality: 'Brasileiro',
         isMarried: false,
+        cpf: '15464598502',
+        email: 'richard@email.com',
         createdAt: new Date(),
         updatedAt: new Date()
       }, {
@@ -18,6 +20,8 @@ module.exports = {
       visa: 'Brasil',
       nationality: 'Brasileiro',
       isMarried: true,
+      cpf: '54325645925',
+      email: 'igor@email.com',
       createdAt: new Date(),
       updatedAt: new Date()
    }], {});

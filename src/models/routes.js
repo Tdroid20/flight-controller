@@ -8,10 +8,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Routes.init({
-    start: DataTypes.STRING,
-    firstStop: DataTypes.STRING,
-    secondStop: DataTypes.STRING,
-    end: DataTypes.STRING,
+    start: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    firstStop: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    secondStop: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    end: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   }, {
     sequelize,
     modelName: 'Routes',

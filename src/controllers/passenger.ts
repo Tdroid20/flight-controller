@@ -115,7 +115,7 @@ class Routes {
                         let convert =  value === 'true' ? true : false;
                         User.isMarried = convert
                         User.save().then((x:any) => res.send(x))
-                }
+                };
             }
         }
     }
