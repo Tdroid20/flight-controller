@@ -11,19 +11,23 @@ module.exports = {
         isMarried: false,
         cpf: '15464598502',
         email: 'richard@email.com',
+        startIn: 'SP',
+        endsIn: 'RS',
         createdAt: new Date(),
         updatedAt: new Date()
       }, {
         id: 2,
-      name: 'Igor Santos',
-      age: 28,
-      visa: 'Brasil',
-      nationality: 'Brasileiro',
-      isMarried: true,
-      cpf: '54325645925',
-      email: 'igor@email.com',
-      createdAt: new Date(),
-      updatedAt: new Date()
+        name: 'Igor Santos',
+        age: 28,
+        visa: 'Brasil',
+        nationality: 'Brasileiro',
+        isMarried: true,
+        cpf: '54325645925',
+        email: 'igor@email.com',
+        startIn: 'SP',
+        endsIn: 'RS',
+        createdAt: new Date(),
+        updatedAt: new Date()
    }], {});
    
   },

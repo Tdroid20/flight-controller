@@ -12,8 +12,16 @@ router.get('/list', async (req: Request, res: Response) => {
 
 router.get('/list/findOneByID=:id', async (req: Request, res: Response) => {
     const params: any = req.params;
-    console.log(params.id)
     Passengers.findOneById(params.id, req, res)
+})
+
+router.get('/list/findOneByCpf=:cpf', async (req: Request, res: Response) => {
+    const params: any = req.params;
+    Passengers.findOneByCPF(params.cpf, req, res)
+})
+router.get('/list/findOneByEmail=:email', async (req: Request, res: Response) => {
+    const params: any = req.params;
+    Passengers.findOneByEMAIL(params.email, req, res)
 })
 
 

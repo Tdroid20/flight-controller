@@ -4,12 +4,7 @@ module.exports = {
     
      await queryInterface.createTable('passengers', { 
       id: {
-        type: Sequelize.UUID,
-        primaryKey: true,
-        allowNull: false
-      },
-      d: {
-        type: Sequelize.UUID,
+        type: Sequelize.INTEGER,
         primaryKey: true,
         allowNull: false
       },

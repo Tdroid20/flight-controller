@@ -18,7 +18,7 @@ class Routes {
                     return res.status(500).json(err)
                 }
         }
-
+        // READ
         static async findOneById(
             id: Number, 
             req: Request, 
@@ -31,6 +31,39 @@ class Routes {
             return res.status(200).json(search)
         }
 
+        static async findOneByEMAIL(
+            email: String, 
+            req: Request, 
+            res: Response, 
+            ): Promise<any> {
+            const search = await db.passengers.findAll({
+                where: {
+                    email: email
+                }
+            });
+            if(!search) {
+                return res.status(404).json('Não encontrado')
+            }
+            return res.status(200).json(search)
+        }
+
+        static async findOneByCPF(
+            cpf: String, 
+            req: Request, 
+            res: Response, 
+            ): Promise<any> {
+            const search = await db.passengers.findAll({
+                where: {
+                    cpf: cpf
+                }
+            });
+            if(!search) {
+                return res.status(404).json('Não encontrado')
+            }
+            return res.status(200).json(search)
+        }
+
+        //post
         static async create(
             _newRegister: INewPassenger, 
             req: Request, 
@@ -63,6 +96,7 @@ class Routes {
                     res.status(500).json(error)
                 }
             }
+        // Delete
         static async deleteAll(
             req: Request, 
             res: Response
@@ -89,6 +123,7 @@ class Routes {
             }
         }
 
+        // Update
         static async updateOne(
             findBy: string | 'id' | 'cpf' | 'email',
             field: any,
