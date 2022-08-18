@@ -32,11 +32,10 @@ router.post('/register', (req: Request, res: Response) => {
 =============================// PUT //==============================
 */
 
-router.put('/edit/findOneByID=:id', (req: Request, res: Response) => {
-    const data= req.params;
-    console.log(data)
+router.put('/edit/findBy=:type&user=:user&field=:field&value=:value', (req: Request, res: Response) => {
+    const data = req.params;
 
-    res.send(`Não consegui editar o passageiro ${data.id} pois ainda não tenho uma database criada. Tente novamente em breve.`)
+    Passengers.updateOne(data.type, data.field, data.value, data.user, req, res)
 });
 
 /*

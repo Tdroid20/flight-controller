@@ -1,4 +1,5 @@
 'use strict';
+
 const {
   Model
 } = require('sequelize');
@@ -8,19 +9,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   passengers.init({
+    id: {
+      type: DataTypes.UUID,
+      primaryKey: true,
+      allowNull: false
+    },
     name: DataTypes.STRING,
     age: DataTypes.INTEGER,
     visa: DataTypes.STRING,
     nationality: DataTypes.STRING,
-    isMarried: DataTypes.BOOLEAN,
-    goTo: {
-      type: DataTypes.NUMBER,
-      references: {         // User belongsTo Company 1:1
-        model: 'Routes',
-        key: 'id',
-        field: 'airplane_id'
-      }
-    }
+    isMarried: DataTypes.BOOLEAN
   }, {
     sequelize,
     modelName: 'passengers',
