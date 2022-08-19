@@ -9,6 +9,7 @@
   "dependencies": {
     "@types/uuid": "^8.3.4",
     "colors": "^1.4.0",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "http": "^0.0.1-security",
     "pg": "^8.7.3",
@@ -26,6 +27,7 @@
   },
   "scripts": {
     "dev": "ts-node-dev app.ts",
-    "start": "node dist/app.js"
+    "start": "NODE_ENV=Production && node .",
+    "host": "ts-node-dev app.ts"
   }
 }

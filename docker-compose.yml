@@ -1,0 +1,48 @@
+version: '3.5'
+
+volumes:
+  data:
+
+services:
+ database: 
+  image: postgres
+  expose: 
+    - 5432
+  ports: 
+    - 5432:5432
+  environment:
+    POSTGRES_PASSWORD: 2682
+    PORT: 5432
+  container_name: db
+  volumes:
+   - ~/dbdata:/var/lib/postgresql/data
+  networks: 
+    - app-network
+
+ node: 
+  image: node:16
+  environment: 
+    PG_PASSWD: 2682
+    PORT: 5555
+  volumes:
+    - /home/Tdroid/Documentos/case/flight-controller
+
+ api: 
+  image: tdroid20/flight-controller:3.0
+  ports: 
+    - 3000:3000
+  depends_on:
+    - database
+    - node
+  environment: 
+    POSTGRES_PASSWORD: 2682
+    PORT: 3000
+  volumes:
+    - /home/Tdroid/Documentos/case/flight-controller
+  networks: 
+    - app-network
+  container_name: app
+
+networks:   
+  app-network: 
+    driver: bridge

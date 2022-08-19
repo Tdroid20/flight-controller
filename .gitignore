@@ -6,3 +6,4 @@ yarn*.log
 
 # Environment variables
 .env
+.env.prod

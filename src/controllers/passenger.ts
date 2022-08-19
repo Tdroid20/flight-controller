@@ -73,6 +73,7 @@ class Routes {
 
                     let { name, age, visa, nationality, goTo, isMarried } =  Object.assign({}, _newRegister)
     
+                    let haveDiscount = isMarried === true ? true : false;
                     
                     let NewRegister = {
                         id: uuid(),
@@ -82,10 +83,12 @@ class Routes {
                         nationality,
                         isMarried,
                         goTo,
+                        haveDiscount,
                         createdAt: new Date(),
                         updatedAt: new Date()
                     }
 
+                    if(age <= 10) return res.status(500).send(`Só aceitamos pessoas com mais de 10 anos`)
                     await db.passengers.create(NewRegister, req, res)
 
                     res.status(200).send(`O passageiro ${name} foi registrado`)
@@ -132,27 +135,37 @@ class Routes {
             req: Request,
             res: Response
         ): Promise<any> {
-                
-            switch(findBy) {
-                case 'id': {
-                    console.log(user)
-                    let User = await db.passengers.findByPk(user);
+            let User;
 
-                    if(field === 'age') {
-                        User.age = value
-                        User.save().then((x:any) => res.send(x))
-                        console.log(User.age)
-                    } else if(field === 'name') { 
-                        user.name = value
-                        User.save().then((x:any) => res.send(x))
-                    } else if(field === 'isMarried') { 
-                        if([true, false].includes(value)) return res.send(`O valor não é um valor do tipo Boolean (verdadeiro ou falso)`)
-                        let convert =  value === 'true' ? true : false;
-                        User.isMarried = convert
-                        User.save().then((x:any) => res.send(x))
-                };
-            }
+        if(findBy === 'id') {
+            User = await db.passengers.findByPk(user);
+        } else if(findBy === 'cpf') {
+            User = await db.passengers.findAll({
+                where: {
+                    cpf: user
+                }
+            });
+        } else if(findBy === 'email') {
+            User = await db.passengers.findAll({
+                where: {
+                    email: user
+                }
+            });
         }
+
+        if(field === 'age') {
+            if(value <= 10) return res.status(500).send(`Só aceitamos pessoas com mais de 10 anos`)
+            User.age = value
+            User.save().then((x:any) => res.send(x))
+        } else if(field === 'name') { 
+            user.name = value
+            User.save().then((x:any) => res.send(x))
+        } else if(field === 'isMarried') { 
+            if([true, false].includes(value)) return res.send(`O valor não é um valor do tipo Boolean (verdadeiro ou falso)`)
+            let convert =  value === 'true' ? true : false;
+            User.isMarried = convert
+            User.save().then((x:any) => res.send(x))
+        };
     }
 }
 
