@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   airPlanes.init({
     passangers: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       allowNull: false
     },
     router_id: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.UUID,
       references: {
         model: 'Routes',
         key: 'id',

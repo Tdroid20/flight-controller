@@ -1,9 +1,10 @@
 'use strict';
+const { v4 } = require('uuid');
 
 module.exports = {
   async up (queryInterface, Sequelize) {
      await queryInterface.bulkInsert('Routes', [{
-      id: 1,
+      id: v4(),
       start: 'SP',
       firstStop: 'PR',
       secondStop: 'SC',
@@ -11,7 +12,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
      }, {
-      id: 2,
+      id: v4(),
       start: 'SP',
       firstStop: 'RJ',
       secondStop: 'ES',
@@ -19,7 +20,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
      }, {
-      id: 3,
+      id: v4(),
       start: 'RR',
       firstStop: 'AM',
       secondStop: 'RO',
@@ -27,7 +28,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
      }, {
-      id: 4,
+      id: v4(),
       start: 'AP',
       firstStop: 'MA',
       secondStop: 'AL',
@@ -35,7 +36,7 @@ module.exports = {
       createdAt: new Date(),
       updatedAt: new Date()
      }, {
-      id: 5,
+      id: v4(),
       start: 'PR',
       firstStop: 'GO',
       secondStop: 'TO',

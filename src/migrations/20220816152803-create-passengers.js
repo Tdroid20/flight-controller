@@ -1,12 +1,14 @@
 'use strict';
+const { DataTypes } = require('sequelize');
 module.exports = {
   async up (queryInterface, Sequelize) {
     
      await queryInterface.createTable('passengers', { 
       id: {
-        type: Sequelize.INTEGER,
+        allowNull: false,
         primaryKey: true,
-        allowNull: false
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4
       },
       name: {
         type: Sequelize.STRING,

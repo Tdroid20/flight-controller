@@ -1,9 +1,11 @@
 'use strict';
+const { v4 } = require('uuid');
+
 module.exports = {
   async up (queryInterface, Sequelize) {
     
       await queryInterface.bulkInsert('passengers', [{
-        id: 1,
+        id: v4(),
         name: 'Richard Pereira',
         age: 16,
         visa: 'Brasil',
@@ -17,7 +19,7 @@ module.exports = {
         createdAt: new Date(),
         updatedAt: new Date()
       }, {
-        id: 2,
+        id: v4(),
         name: 'Igor Santos',
         age: 28,
         visa: 'Brasil',

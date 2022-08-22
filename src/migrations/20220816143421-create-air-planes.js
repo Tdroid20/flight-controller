@@ -1,18 +1,19 @@
 'use strict';
+const { DataTypes } = require('sequelize');
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('airPlanes', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: DataTypes.UUID,
+        defaultValue: DataTypes.UUIDV4
       },
       passangers: {
-        type: Sequelize.INTEGER
+        type: DataTypes.INTEGER
       },
       router_id: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.UUID,
         references: {         // User belongsTo Company 1:1
           model: 'Routes',
           key: 'id',

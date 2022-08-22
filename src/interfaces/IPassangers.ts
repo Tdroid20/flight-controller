@@ -1,10 +1,15 @@
+import { v4 } from 'uuid'
+
 export interface INewPassenger {
-    id?: Number,
+    id?: typeof v4,
+    cpf: Number,
+    email?: String | undefined | null,
     name: String,
     age: number,
     visa: String,
     nationality: String,
-    goTo: Number,
+    startIn: String,
+    endsIn: String,
     isMarried: Boolean
 }
 

@@ -1,35 +1,36 @@
 'use strict';
+const { v4 } = require('uuid');
 
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.bulkInsert('airPlanes', [{
-      id: 1,
+      id: v4(),
       passangers: 8,
-      router_id: 1,
+      router_id: '4eb1aaee-a783-45a7-8c10-2afd772b500b',
       createdAt: new Date(),
       updatedAt: new Date()
      }, {
-      id: 2,
+      id: v4(),
       passangers: 8,
-      router_id: 1,
+      router_id: '4eb1aaee-a783-45a7-8c10-2afd772b500b',
       createdAt: new Date(),
       updatedAt: new Date()
      }, {
-      id: 3,
+      id: v4(),
       passangers: 8,
-      router_id: 1,
+      router_id: '4eb1aaee-a783-45a7-8c10-2afd772b500b',
       createdAt: new Date(),
       updatedAt: new Date()
      }, {
-      id: 4,
+      id: v4(),
       passangers: 8,
-      router_id: 1,
+      router_id: '4eb1aaee-a783-45a7-8c10-2afd772b500b',
       createdAt: new Date(),
       updatedAt: new Date()
      }, {
-      id: 5,
+      id: v4(),
       passangers: 8,
-      router_id: 1,
+      router_id: '4eb1aaee-a783-45a7-8c10-2afd772b500b',
       createdAt: new Date(),
       updatedAt: new Date()
      }], {});

@@ -7,7 +7,7 @@ import Passengers from '../../controllers/passenger'
 */
 
 router.get('/list', async (req: Request, res: Response) => {
-    Passengers.getAll(req, res)
+    Passengers.getAll(req, res) // padronizar
 })
 
 router.get('/list/findOneByID=:id', async (req: Request, res: Response) => {
@@ -31,7 +31,7 @@ router.get('/list/findOneByEmail=:email', async (req: Request, res: Response) =>
 */
 
 router.post('/register', (req: Request, res: Response) => {
-    const data= req.body[0];
+    const data = req.body[0];
     
     Passengers.create(data, req, res)
 });

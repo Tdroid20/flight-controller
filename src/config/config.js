@@ -2,7 +2,6 @@ const { config } = require('dotenv');
 config()
 const pg_passwd = process.env.PG_PASSWD;
 
-console.log(pg_passwd)
 module.exports = {
   "development": {
     "username": "postgres",
