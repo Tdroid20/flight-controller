@@ -99,8 +99,6 @@ class Routes {
                         'cpf',
                         'email',
                     ]
-
-                    console.log(`Validação: `, validateRegister);
                     
                     //validação de campos nulos
                     for(let i = 0; i < validateRegister.length; i++) {
@@ -156,7 +154,7 @@ class Routes {
                     if(cpfAlreadyExists[0] != undefined) {
                         console.log(`Esse CPF já foi registrado por outro passageiro`)
                         return res.status(500).send('Esse CPF já foi registrado por outro passageiro')
-                    } else if(IdAlreadyExists[0] != undefined) {
+                    } else if(IdAlreadyExists != undefined) {
                         console.log(`O id ${NewRegister.id} já está vinculado a outra conta`)
                         return res.status(500).send(`O id ${NewRegister.id} já está vinculado a outra conta`)
                     }
