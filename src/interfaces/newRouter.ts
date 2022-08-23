@@ -3,4 +3,5 @@ export default interface NewPassenger extends Array<NewPassenger> {
     firstStop: String,
     secondStop: String,
     end: String,
+    price: Number
 }

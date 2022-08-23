@@ -24,6 +24,12 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    price: {
+    type: DataTypes.DECIMAL(10, 2),
+    },
+    routerLine: {
+      type: DataTypes.INTEGER
+    }
   }, {
     sequelize,
     modelName: 'Routes',

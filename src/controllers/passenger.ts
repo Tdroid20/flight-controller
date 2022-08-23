@@ -103,7 +103,7 @@ class Routes {
                     //validação de campos nulos
                     for(let i = 0; i < validateRegister.length; i++) {
                         
-                        if(validateRegister[i] === undefined && tagRegister[i] != 'email') {
+                        if(validateRegister[i] === undefined) {
                             console.log(`o campo ${tagRegister[i]}  não foi definido`)
                             res.status(500).send(`o campo ${tagRegister[i]} não foi definido`)
                         }

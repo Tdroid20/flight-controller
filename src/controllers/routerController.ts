@@ -1,11 +1,12 @@
-import { Request, Response } from 'express';
 import newRouter  from '../interfaces/newRouter';
+import { Request, Response } from 'express';
+import { v4 as uuid } from 'uuid';
 
 
 const db = require('../models');
 
 class Routes {
-        static async getAll(req: Request, res: Response): Promise<any> {
+        static async findAll(req: Request, res: Response): Promise<any> {
                 try {
                     const result = await db.Routes.findAll()
                     return res.status(200).json(result)
@@ -26,30 +27,67 @@ class Routes {
             return res.status(200).json(search)
         }
 
+        static async findOneByRouterLine(
+            line: Number,
+            req: Request,
+            res: Response,
+            ): Promise<any> {
+            const search = await db.Routes.findOne({ 
+                where: { 
+                    routerLine: line 
+                }
+            });
+            if(!search) {
+                return res.status(404).json('Não encontrado')
+            }
+            return res.status(200).json(search)
+        }
+
         static async create(
             _newRegister: newRouter,
             req: Request,
             res: Response
             ): Promise<any> {
                 try {
-                    let { start, firstStop, secondStop, end } =  Object.assign({}, _newRegister)
-
-                    if(typeof(_newRegister) != 'object') {
-                        console.log(`O Tipo especificado não foi um Objeto`);
-                        return res.status(501).send('O Tipo especificado não é um Objeto');
-                    }
-
-                    let getAllInDb: Array<object> = await db.Routes.findAll()
+                    console.log(Object.assign({}, _newRegister));
                     
-                    let NewRegister = {
-                        id: getAllInDb.length + 1,
+                    let { start, firstStop, secondStop, end, price } =  Object.assign({}, _newRegister)
+
+
+                    let validateRegister = [
                         start,
                         firstStop,
                         secondStop,
                         end,
+                        price
+                    ];
+
+                    let tagRegister = [
+                        'start',
+                        'firstStop',
+                        'secondStop',
+                        'end',
+                        'price'
+                    ];
+
+                    for(let i = 0; i < validateRegister.length; i++) {
+
+                        if(validateRegister[i] === undefined) {
+                            res.status(500).send(`o campo ${tagRegister[i]} não foi definido`)
+                        }
+                    }
+
+
+                    let NewRegister = {
+                        id: uuid(),
+                        start,
+                        firstStop,
+                        secondStop,
+                        end,
+                        price,
                         createdAt: new Date(),
                         updatedAt: new Date()
-                        }
+                    }
 
                     await db.Routes.create(NewRegister, req, res)
 
@@ -66,33 +104,44 @@ class Routes {
                         res.status(500).json(error)
                     }
                 }
-            }
-        static async deleteAll(
+            } 
+        static async deleteById(
+            user: any,
             req: Request, 
             res: Response
             ): Promise<any> {
             try {
-                db.Routes.destroy({
-                    truncate: true
-                  });
-                  res.status(200).send('Todas as Rotas foram removidas do meu banco de dados')
-            } catch (error) {
-                res.status(500).json(error)
-            }
-        } 
-        static async delete(
-            user: any, 
-            req: Request, 
-            res: Response
-            ): Promise<any> {
-            try {
-                console.log(user.id)
+                let exist = await db.Routes.findOne({ 
+                    where: { 
+                        id: user.id 
+                    }
+                });
+                if(exist === null) return res.status(404).send(`Não encontrado`)
                 db.Routes.destroy({ where: { id: user.id } });
                 res.status(200).send('Rota removido do meu banco de dados')
             } catch (error) {
                 res.status(500).json(error)
             }
-        } 
+        }
+        static async deleteByRouterLine(
+            user: any,
+            req: Request, 
+            res: Response
+            ): Promise<any> {
+            try {
+                let exist = await db.Routes.findOne({ 
+                    where: { 
+                        routerLine: user.line 
+                    }
+                });
+                if(exist === null) return res.status(404).send(`Não encontrado`)
+                
+                db.Routes.destroy({ where: { routerLine: user.line } });
+                res.send('Rota removido do meu banco de dados')
+            } catch (error) {
+                res.status(500).json(error)
+            }
+        }
     }
 
 export default Routes;
