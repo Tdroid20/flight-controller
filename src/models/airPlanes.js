@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   airPlanes.init({
     passangers: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false
     },
     router_id: {

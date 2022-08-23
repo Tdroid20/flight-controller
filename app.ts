@@ -20,7 +20,7 @@ let pg_passwd = process.env.PG_PASSWD
 
 const connectDB = async () => {
     const sequelize = new Sequelize('flight-controller', 'postgres', pg_passwd, {
-        host: 'db',
+        host: 'localhost',
         port: 5432,
         dialect: 'postgres'
     });

@@ -10,7 +10,7 @@ interface InterableINewPasenger {
 const db = require('../models');
 
 class Routes {
-        static async getAll(req: Request, res: Response): Promise<any> {
+        static async findAll(req: Request, res: Response): Promise<any> {
                 try {
                     const result = await db.passengers.findAll()
                     return res.status(200).json(result)
@@ -100,19 +100,6 @@ class Routes {
                         'email',
                     ]
 
-                    const emailAlreadyExists = await db.passengers.findAll({
-                        where: {
-                            email: email
-                        }
-                    });
-
-                    if(emailAlreadyExists[0] != undefined) {
-                        console.log(`Esse E-mail já foi registrado por outro passageiro`)
-                        return res.status(500).send('Esse E-mail já foi registrado por outro passageiro')
-                    }
-
-                    let emailFinal = email;
-
                     console.log(`Validação: `, validateRegister);
                     
                     //validação de campos nulos
@@ -122,12 +109,6 @@ class Routes {
                             console.log(`o campo ${tagRegister[i]}  não foi definido`)
                             res.status(500).send(`o campo ${tagRegister[i]} não foi definido`)
                         }
-                        validateRegister[8]
-                        if(i == 8 && validateRegister[8] === undefined) {
-                            emailFinal = null
-                            console.log(`estado email alterado`);
-                            
-                        }
                     }
 
                     const cpfAlreadyExists = await db.passengers.findAll({
@@ -135,8 +116,6 @@ class Routes {
                             cpf: cpf
                         }
                     });
-
-                    console.log(emailFinal);
                     
                     let NewRegister = {
                         id: uuid(),
@@ -148,11 +127,12 @@ class Routes {
                         startIn,
                         endsIn,
                         cpf,
-                        emailFinal,
+                        email,
                         haveDiscount,
                         createdAt: new Date(),
                         updatedAt: new Date()
                     }
+
 
                     if(age <= 10) return res.send(`Só aceitamos passageiros maiores que 10 anos de idade`)
 
@@ -162,7 +142,17 @@ class Routes {
 
                     const IdAlreadyExists = await db.passengers.findByPk(NewRegister.id);
 
-                    console.log(emailAlreadyExists[0] != undefined)
+                    const emailAlreadyExists = await db.passengers.findAll({
+                        where: {
+                            email: email
+                        }
+                    });
+
+                    if(emailAlreadyExists[0] != undefined) {
+                        console.log(`Esse E-mail já foi registrado por outro passageiro`)
+                        return res.status(500).send('Esse E-mail já foi registrado por outro passageiro')
+                    }
+
                     if(cpfAlreadyExists[0] != undefined) {
                         console.log(`Esse CPF já foi registrado por outro passageiro`)
                         return res.status(500).send('Esse CPF já foi registrado por outro passageiro')
@@ -189,19 +179,6 @@ class Routes {
                 }
             }
         // Delete
-        static async deleteAll(
-            req: Request, 
-            res: Response
-            ): Promise<any> {
-            try {
-                db.passengers.destroy({
-                    truncate: true
-                  });
-                  res.status(200).send('Todos os passageiro removido do meu banco de dados')
-            } catch (error) {
-                res.status(500).json(error)
-            }
-        } 
         static async delete(
             user: any, 
             req: Request, 
@@ -228,32 +205,34 @@ class Routes {
 
         if(findBy === 'id') {
             User = await db.passengers.findByPk(user);
+            console.log(User)
         } else if(findBy === 'cpf') {
-            User = await db.passengers.findAll({
+            User = await db.passengers.findOne({
                 where: {
                     cpf: user
                 }
             });
         } else if(findBy === 'email') {
-            User = await db.passengers.findAll({
+            User = await db.passengers.findOne({
                 where: {
                     email: user
                 }
+                
             });
         }
 
         if(field === 'age') {
             if(value <= 10) return res.status(500).send(`Só aceitamos pessoas com mais de 10 anos`)
             User.age = value
-            User.save().then((x:any) => res.send(x))
+            await User.save().then((x:any) => res.send(x))
         } else if(field === 'name') { 
             user.name = value
-            User.save().then((x:any) => res.send(x))
+            await User.save().then((x:any) => res.send(x))
         } else if(field === 'isMarried') { 
             if([true, false].includes(value)) return res.send(`O valor não é um valor do tipo Boolean (verdadeiro ou falso)`)
             let convert =  value === 'true' ? true : false;
             User.isMarried = convert
-            User.save().then((x:any) => res.send(x))
+            await User.save().then((x:any) => res.send(x))
         };
     }
 }
