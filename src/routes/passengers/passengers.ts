@@ -1,50 +1,41 @@
 const router = require('express').Router();
+import { Request, Response } from 'express';
+import Passengers from '../../controllers/passenger'
 
-/*
-=============================// GET //==============================
-*/
-
-router.get('/list', async (req: any, res: any) => {
-    res.json({ msg: 'List De passageiros indisponivel'})
+router.get('/list', async (req: Request, res: Response) => {
+    Passengers.findAll(req, res)
 })
 
-router.get('/list/findOneByID=:id', async (req: { params: any; }, res: any) => {
-    const params = req.params;
+router.get('/list/findOneByID=:id', async (req: Request, res: Response) => {
+    const params: any = req.params;
+    Passengers.findOneById(params.id, req, res)
+})
+
+router.get('/list/findOneByCpf=:cpf', async (req: Request, res: Response) => {
+    const params: any = req.params;
+    Passengers.findOneByCPF(params.cpf, req, res)
+})
+router.get('/list/findOneByEmail=:email', async (req: Request, res: Response) => {
+    const params: any = req.params;
+    Passengers.findOneByEMAIL(params.email, req, res)
+})
+
+
+router.post('/register', (req: Request, res: Response) => {
+    const data = req.body[0];
     
-    res.json({ msg: `Passageiro numero ${params.id} não encontrado` })
-})
-
-/*
-=============================// POST //==============================
-*/
-
-router.post('/register', (req: any, res: any) => {
-    const data= req.body[0];
-    console.log(data)
-
-    res.send(`Não consegui adicionar o(a) ${data.name} de ${data.age} anos idade pois ainda não tenho uma database criada. Tente novamente em breve.`)
+    Passengers.create(data, req, res)
 });
 
-/*
-=============================// PUT //==============================
-*/
+router.put('/edit/findBy=:type&user=:user&field=:field&value=:value', (req: Request, res: Response) => {
+    const data = req.params;
 
-router.put('/edit/findOneByID=:id', (req: any, res: any) => {
-    const data= req.params;
-    console.log(data)
-
-    res.send(`Não consegui editar o passageiro ${data.id} pois ainda não tenho uma database criada. Tente novamente em breve.`)
+    Passengers.updateOne(data.type, data.field, data.value, data.user, req, res)
 });
 
-/*
-=============================// DELETE //==============================
-*/
-
-router.delete('/delete/findOneByID=:id', (req: any, res: any) => {
-    const data= req.params;
-    console.log(data)
-
-    res.send(`Não consegui deletar o passageiro ${data.id} pois ainda não tenho uma database criada. Tente novamente em breve.`)
+router.delete('/delete/findOneByID=:id', (req: Request, res: Response) => {
+    const data: any = req.params;
+    Passengers.delete(data, req, res)
 });
 
 export default router;
