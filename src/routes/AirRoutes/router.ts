@@ -29,7 +29,7 @@ router.put('/edit/findOneByID=:id', (req: Request, res: Response) => {
     const data= req.params;
     console.log(data)
 
-    res.send(`Não consegui editar o passageiro ${data.id} pois ainda não tenho uma database criada. Tente novamente em breve.`)
+    // Routes.updateOne(data.type, data.field, data.value, data.user, req, res)
 });
 
 

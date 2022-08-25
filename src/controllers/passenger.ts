@@ -71,7 +71,7 @@ class Routes {
             ): Promise<any> {
                 try {
                     
-                    let { cpf, email, name, age, visa, nationality, startIn, endsIn, isMarried } =  Object.assign({}, _newRegister)
+                    let { cpf, email, name, age, visa, nationality, airPlane, isMarried } =  Object.assign({}, _newRegister)
                     
                     let haveDiscount = isMarried === true ? true : false;
 
@@ -80,8 +80,7 @@ class Routes {
                         age,
                         visa,
                         nationality,
-                        startIn,
-                        endsIn,
+                        airPlane,
                         isMarried,
                         cpf,
                         email,
@@ -93,8 +92,7 @@ class Routes {
                         'age',
                         'visa',
                         'nationality',
-                        'startIn',
-                        'endsIn',
+                        'airPlane',
                         'isMarried',
                         'cpf',
                         'email',
@@ -114,6 +112,17 @@ class Routes {
                             cpf: cpf
                         }
                     });
+
+                    const airPlaneAlreadyExists = await db.airPlanes.findOne({
+                        where: {
+                            id: airPlane
+                        }
+                    });
+
+                    console.log(airPlaneAlreadyExists)
+                    if(airPlaneAlreadyExists == null) {
+                        return res.status(500).send('Esse Avião não existe no meu banco de dados')
+                    }
                     
                     let NewRegister = {
                         id: uuid(),
@@ -122,8 +131,7 @@ class Routes {
                         visa,
                         nationality,
                         isMarried,
-                        startIn,
-                        endsIn,
+                        airPlane,
                         cpf,
                         email,
                         haveDiscount,

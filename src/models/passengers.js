@@ -1,8 +1,6 @@
 'use strict';
 
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class passengers extends Model {
     static associate(models) {
@@ -10,9 +8,10 @@ module.exports = (sequelize, DataTypes) => {
   }
   passengers.init({
     id: {
-      type: DataTypes.UUID,
+      allowNull: false,
       primaryKey: true,
-      allowNull: false
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
     },
     name: {
       type: DataTypes.STRING,
@@ -40,19 +39,26 @@ module.exports = (sequelize, DataTypes) => {
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: true,
-    },
-    startIn: {
-      type: DataTypes.STRING,
       allowNull: false
     },
-    endsIn: {
-      type: DataTypes.STRING,
-      allowNull: false
+    airPlane: {
+      type: DataTypes.UUID,
+      reference: {
+        model: 'airPlane',
+        key: 'id'
+      }
     },
     haveDiscount: {
       type: DataTypes.BOOLEAN,
       default: false
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
   }, {
     sequelize,
