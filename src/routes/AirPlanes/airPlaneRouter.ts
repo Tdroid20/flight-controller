@@ -42,12 +42,13 @@ router.put('/edit/findOneByplaneId=:planeId&newRouter=:router', (req: Request, r
 
 router.delete('/delete/findOneByID=:id', (req: Request, res: Response) => {
     const data: any = req.params;
-    AirPLane.deleteById(data, req, res)
+    
+    AirPLane.deleteById(data.id, req, res)
 });
 
-router.delete('/delete/findOneByRouterLine=:line', (req: Request, res: Response) => {
+router.delete('/delete/findOneByPlaneId=:planeId', (req: Request, res: Response) => {
     const data: any = req.params;
-    AirPLane.deleteByPlaneId(data, req, res)
+    AirPLane.deleteByPlaneId(data.planeId, req, res)
 });
 
 export default router;

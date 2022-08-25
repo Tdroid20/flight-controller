@@ -133,11 +133,12 @@ class airPlanes {
             try {
                 let exist = await db.airPlanes.findOne({ 
                     where: { 
-                        id: user.id
+                        id: user
                     }
                 });
+                
                 if(exist === null) return res.status(404).send(`Não encontrado`)
-                db.airPlanes.destroy({ where: { id: user.id } });
+                db.airPlanes.destroy({ where: { id: user } });
                 res.status(200).send('Rota removido do meu banco de dados')
             } catch (error) {
                 res.status(500).json(error)
@@ -151,12 +152,12 @@ class airPlanes {
             try {
                 let exist = await db.airPlanes.findOne({ 
                     where: { 
-                        planeId: user.line 
+                        planeId: user 
                     }
                 });
                 if(exist === null) return res.status(404).send(`Não encontrado`)
                 
-                db.airPlanes.destroy({ where: { routerLine: user.line } });
+                db.airPlanes.destroy({ where: { planeId: user } });
                 res.send('Rota removido do meu banco de dados')
             } catch (error) {
                 res.status(500).json(error)
