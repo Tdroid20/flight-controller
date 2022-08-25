@@ -38,13 +38,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      startIn: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      endsIn: {
-        type: Sequelize.STRING,
-        allowNull: false
+      airPlane: {
+        type: Sequelize.UUID,
+        reference: {
+          model: 'airPlane',
+          key: 'id'
+        }
       },
       haveDiscount: {
         type: Sequelize.BOOLEAN,
@@ -57,7 +56,7 @@ module.exports = {
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE
-      }
+      },
     });
     
   },

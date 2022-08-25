@@ -8,8 +8,7 @@ export interface INewPassenger {
     age: number,
     visa: String,
     nationality: String,
-    startIn: String,
-    endsIn: String,
+    airPlane: String,
     isMarried: Boolean
 }
 
@@ -19,6 +18,6 @@ export interface IUpdatePassenger {
     age: number,
     visa: String,
     nationality: String,
-    goTo: Number,
+    airPlane: String,
     isMarried: Boolean
 }

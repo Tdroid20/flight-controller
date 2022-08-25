@@ -71,7 +71,7 @@ class Routes {
             ): Promise<any> {
                 try {
                     
-                    let { cpf, email, name, age, visa, nationality, startIn, endsIn, isMarried } =  Object.assign({}, _newRegister)
+                    let { cpf, email, name, age, visa, nationality, airPlane, isMarried } =  Object.assign({}, _newRegister)
                     
                     let haveDiscount = isMarried === true ? true : false;
 
@@ -80,8 +80,7 @@ class Routes {
                         age,
                         visa,
                         nationality,
-                        startIn,
-                        endsIn,
+                        airPlane,
                         isMarried,
                         cpf,
                         email,
@@ -93,8 +92,7 @@ class Routes {
                         'age',
                         'visa',
                         'nationality',
-                        'startIn',
-                        'endsIn',
+                        'airPlane',
                         'isMarried',
                         'cpf',
                         'email',
@@ -103,7 +101,7 @@ class Routes {
                     //validação de campos nulos
                     for(let i = 0; i < validateRegister.length; i++) {
                         
-                        if(validateRegister[i] === undefined && tagRegister[i] != 'email') {
+                        if(validateRegister[i] === undefined) {
                             console.log(`o campo ${tagRegister[i]}  não foi definido`)
                             res.status(500).send(`o campo ${tagRegister[i]} não foi definido`)
                         }
@@ -114,6 +112,27 @@ class Routes {
                             cpf: cpf
                         }
                     });
+
+                    const airPlaneAlreadyExists = await db.airPlanes.findOne({
+                        where: {
+                            id: airPlane
+                        }
+                    });
+
+                    
+                    if(airPlaneAlreadyExists == null) {
+                        return res.status(500).send('Esse Avião não existe no meu banco de dados')
+                    }
+
+                    const rateLimit: Array<object> = await db.passengers.findAll({
+                        where: {
+                            airPlane: airPlane
+                        }
+                    });
+
+                    console.log(`Esse avião possui ${rateLimit.length} passageiros`);
+                    
+                    if(rateLimit.length >= 8) return res.send(`Esse avião está lotado.`)
                     
                     let NewRegister = {
                         id: uuid(),
@@ -122,8 +141,7 @@ class Routes {
                         visa,
                         nationality,
                         isMarried,
-                        startIn,
-                        endsIn,
+                        airPlane,
                         cpf,
                         email,
                         haveDiscount,

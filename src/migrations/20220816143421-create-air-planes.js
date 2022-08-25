@@ -1,5 +1,5 @@
 'use strict';
-const { DataTypes } = require('sequelize');
+const { DataTypes, UniqueConstraintError } = require('sequelize');
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('airPlanes', {
@@ -9,15 +9,17 @@ module.exports = {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4
       },
-      passangers: {
-        type: DataTypes.INTEGER
-      },
       router_id: {
         type: DataTypes.UUID,
-        references: {         // User belongsTo Company 1:1
+        references: {
           model: 'Routes',
           key: 'id',
-        }
+        },
+      },
+      planeId: {
+        type: DataTypes.INTEGER,
+        unique: true,
+        autoIncrement: true
       },
       createdAt: {
         allowNull: false,

@@ -1,14 +1,15 @@
 import newRouter  from '../interfaces/newRouter';
 import { Request, Response } from 'express';
 import { v4 as uuid } from 'uuid';
+import { InewAirPlanes } from '../interfaces/IairPlane';
 
 
 const db = require('../models');
 
-class Routes {
+class airPlanes {
         static async findAll(req: Request, res: Response): Promise<any> {
                 try {
-                    const result = await db.Routes.findAll()
+                    const result = await db.airPlanes.findAll()
                     return res.status(200).json(result)
                 } catch (err) {
                     return res.status(500).json(err)
@@ -20,21 +21,21 @@ class Routes {
             req: Request,
             res: Response,
             ): Promise<any> {
-            const search = await db.Routes.findByPk(id);
+            const search = await db.airPlanes.findByPk(id);
             if(!search) {
                 return res.status(404).json('Não encontrado')
             }
             return res.status(200).json(search)
         }
 
-        static async findOneByRouterLine(
+        static async findOneByPlaneId(
             line: Number,
             req: Request,
             res: Response,
             ): Promise<any> {
-            const search = await db.Routes.findOne({ 
+            const search = await db.airPlanes.findOne({ 
                 where: { 
-                    routerLine: line 
+                    planeId: line
                 }
             });
             if(!search) {
@@ -44,30 +45,22 @@ class Routes {
         }
 
         static async create(
-            _newRegister: newRouter,
+            _newRegister: InewAirPlanes<String>,
             req: Request,
             res: Response
             ): Promise<any> {
                 try {
                     console.log(Object.assign({}, _newRegister));
                     
-                    let { start, firstStop, secondStop, end, price } =  Object.assign({}, _newRegister)
+                    let { router_id } =  Object.assign({}, _newRegister)
 
 
                     let validateRegister = [
-                        start,
-                        firstStop,
-                        secondStop,
-                        end,
-                        price
+                        router_id
                     ];
 
                     let tagRegister = [
-                        'start',
-                        'firstStop',
-                        'secondStop',
-                        'end',
-                        'price'
+                        'router_id',
                     ];
 
                     for(let i = 0; i < validateRegister.length; i++) {
@@ -80,16 +73,12 @@ class Routes {
 
                     let NewRegister = {
                         id: uuid(),
-                        start,
-                        firstStop,
-                        secondStop,
-                        end,
-                        price,
+                        router_id,
                         createdAt: new Date(),
                         updatedAt: new Date()
                     }
 
-                    await db.Routes.create(NewRegister, req, res)
+                    await db.airPlanes.create(NewRegister, req, res)
 
                     res.status(200).json(Object.assign({}, _newRegister))
 
@@ -104,88 +93,71 @@ class Routes {
                         res.status(500).json(error)
                     }
                 }
-            }
+            } 
+        
+        static async updateOne(
+            findBy: string | 'id' | 'planeId',
+            value: any,
+            user: any,
+            req: Request,
+            res: Response
+        ): Promise<any> {
+            let User;
 
-            static async updateOne(
-                findBy: string | 'id' | 'routerLine',
-                field: any,
-                value: any,
-                user: any,
-                req: Request,
-                res: Response
-            ): Promise<any> {
-                let User;
-    
             if(findBy === 'id') {
-                User = await db.passengers.findByPk(user);
-                console.log(User)
-            } else if(findBy === 'routerLine') {
-                User = await db.passengers.findOne({
+                User = await db.airPlanes.findOne({
                     where: {
-                        routerLine: user
+                        id: user
                     }
                 });
-              }
+            } else if(findBy === 'planeId') {
+                User = await db.airPlanes.findOne({
+                    where: {
+                        planeId: user
+                    }
+                });
+            }
 
-              
+            
             if(value === undefined) return res.send(`Você não pode deixar o valor em branco`)
     
-            switch(field) {
-                case 'start': {
-                    User.start = value
-                    await User.save().then((x: any) => res.send(`Local de partida alterado com sucesso`));
-                    break;
-                }
-                case 'firstStop': {
-                    User.firstStop = value
-                    await User.save().then((x: any) => res.send(`Local primeira parada obrigatória alterada com sucesso`));
-                    break
-                }
-                case 'secondStop': {
-                    User.firstStop = value
-                    await User.save().then((x: any) => res.send(`Local segunda parada obrigatória alterada com sucesso`));
-                    break;
-                }
-                case 'end': {
-                    User.firstStop = value
-                    await User.save().then((x: any) => res.send(`Local destino alterado com sucesso`));
-                    break;
-                }
-            }
+            User.router_id = value
+            User.save().then((x: any) => res.send(`Rota alterada com sucesso`))
         }
-
+        
         static async deleteById(
             user: any,
             req: Request, 
             res: Response
             ): Promise<any> {
             try {
-                let exist = await db.Routes.findOne({ 
+                let exist = await db.airPlanes.findOne({ 
                     where: { 
-                        id: user.id 
+                        id: user
                     }
                 });
+                
                 if(exist === null) return res.status(404).send(`Não encontrado`)
-                db.Routes.destroy({ where: { id: user.id } });
+                db.airPlanes.destroy({ where: { id: user } });
                 res.status(200).send('Rota removido do meu banco de dados')
             } catch (error) {
                 res.status(500).json(error)
             }
         }
-        static async deleteByRouterLine(
+        static async deleteByPlaneId(
             user: any,
             req: Request, 
             res: Response
             ): Promise<any> {
             try {
-                let exist = await db.Routes.findOne({ 
+                let exist = await db.airPlanes.findOne({ 
                     where: { 
-                        routerLine: user.line 
+                        planeId: user 
                     }
                 });
                 if(exist === null) return res.status(404).send(`Não encontrado`)
                 
-                db.Routes.destroy({ where: { routerLine: user.line } });
+                db.airPlanes.destroy({ where: { planeId: user } });
                 res.send('Rota removido do meu banco de dados')
             } catch (error) {
                 res.status(500).json(error)
@@ -193,4 +165,4 @@ class Routes {
         }
     }
 
-export default Routes;
+export default airPlanes;

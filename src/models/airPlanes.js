@@ -8,17 +8,31 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   airPlanes.init({
-    passangers: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    id: {
+      allowNull: false,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4
     },
     router_id: {
       type: DataTypes.UUID,
       references: {
         model: 'Routes',
         key: 'id',
-        field: 'router_id'
-      }
+      },
+    },
+    planeId: {
+      type: DataTypes.INTEGER,
+      unique: true,
+      autoIncrement: true
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
     }
   }, {
     sequelize,

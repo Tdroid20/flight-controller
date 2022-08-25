@@ -13,8 +13,7 @@ module.exports = {
         isMarried: false,
         cpf: '15464598502',
         email: 'richard@email.com',
-        startIn: 'SP',
-        endsIn: 'RS',
+        airPlane: '0ae0c191-7be5-4561-891a-5ff657962c12',
         haveDiscount: false,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -27,8 +26,7 @@ module.exports = {
         isMarried: true,
         cpf: '54325645925',
         email: 'igor@email.com',
-        startIn: 'SP',
-        endsIn: 'RS',
+        airPlane: '1dd5ac3f-d594-48f7-ac5f-01bd1259fd75',
         haveDiscount: true,
         createdAt: new Date(),
         updatedAt: new Date()
