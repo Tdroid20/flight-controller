@@ -119,10 +119,20 @@ class Routes {
                         }
                     });
 
-                    console.log(airPlaneAlreadyExists)
+                    
                     if(airPlaneAlreadyExists == null) {
                         return res.status(500).send('Esse Avião não existe no meu banco de dados')
                     }
+
+                    const rateLimit: Array<object> = await db.passengers.findAll({
+                        where: {
+                            airPlane: airPlane
+                        }
+                    });
+
+                    console.log(`Esse avião possui ${rateLimit.length} passageiros`);
+                    
+                    if(rateLimit.length >= 8) return res.send(`Esse avião está lotado.`)
                     
                     let NewRegister = {
                         id: uuid(),
