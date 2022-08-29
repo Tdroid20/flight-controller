@@ -25,7 +25,7 @@ router.post('/register/Route=:id', (req: Request, res: Response) => {
 });
 
 
-router.put('/edit/findOneByID=:id&newRouter=:router', (req: Request, res: Response) => {
+router.put('/edit/findOneByID=:id', (req: Request, res: Response) => {
     const data = req.params;
     console.log('data ', data.id)
 

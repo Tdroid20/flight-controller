@@ -38,7 +38,7 @@ connectDB()
 app.use('/api', routers);
 
 app.get('/', (req: Request, res: Response) => {
-    /* toCSV() */
+    toCSV()
     return res.send('Controle de voos Online!');
 })
 

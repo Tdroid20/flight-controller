@@ -71,7 +71,15 @@ class Routes {
             ): Promise<any> {
                 try {
                     
-                    let { cpf, email, name, age, visa, nationality, airPlane, isMarried } =  Object.assign({}, _newRegister)
+                    let { cpf,
+                          email,
+                          name,
+                          age,
+                          visa,
+                          nationality,
+                          airPlane,
+                          isMarried
+                        } =  Object.assign({}, _newRegister)
                     
                     let haveDiscount = isMarried === true ? true : false;
 
@@ -107,7 +115,23 @@ class Routes {
                         }
                     }
 
-                    console.log(typeof(age))
+
+                    if(typeof(name) != 'string') return res.send(`O nome deve ser de tipo string, mas estou recebendo o tipo ${typeof(name)}`)
+
+                    if(typeof(age) != 'number') return res.send(`A idade deve ser de tipo Number, mas estou recebendo o tipo ${typeof(age)}`)
+
+
+                    if(typeof(cpf) != 'string') return res.send(`O cpf deve ser de tipo string, mas estou recebendo o tipo ${typeof(cpf)}`)
+
+                    if(typeof(email) != 'string') return res.send(`O email deve ser de tipo string, mas estou recebendo o tipo ${typeof(email)}`)
+
+                    if(typeof(visa) != 'string') return res.send(`O campo visa deve ser de tipo string, mas estou recebendo o tipo ${typeof(visa)}`)
+
+                    if(typeof(nationality) != 'string') return res.send(`O campo nationality deve ser de tipo string, mas estou recebendo o tipo ${typeof(nationality)}`)
+
+                    if(typeof(airPlane) != 'string') return res.send(`O campo airPlane deve ser de tipo string, mas estou recebendo o tipo ${typeof(airPlane)}`)
+
+                    if(typeof(isMarried) != 'boolean') return res.send(`O campo isMarried deve ser de tipo boolean, mas estou recebendo o tipo ${typeof(isMarried)}`)
 
                     const cpfAlreadyExists = await db.passengers.findAll({
                         where: {
@@ -134,7 +158,7 @@ class Routes {
 
                     console.log(`Esse avião possui ${rateLimit.length} passageiros`);
                     
-                    if(rateLimit.length >= 8) return res.send(`Esse avião está lotado.`)
+                    if(rateLimit.length >= 8) return res.send(`Esse avião está lotado.`);
                     
                     let NewRegister = {
                         id: uuid(),
@@ -182,7 +206,7 @@ class Routes {
                     if(age <= 10) {
                         res.status(500).send(`Só aceitamos pessoas com mais de 10 anos`)
                     } else {
-                        await db.passengers.create(NewRegister, req, res)
+                        /* await db.passengers.create(NewRegister, req, res) */
     
                         res.status(200).send(`O passageiro ${name} foi registrado`)
                     }

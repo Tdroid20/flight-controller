@@ -1,6 +1,8 @@
 import { parseAsync } from "json2csv";
+import moment, { Duration, Moment, MomentCreationData, MomentInput, MomentInputObject } from 'moment';
 import { writeFile } from 'fs';
-import c from 'colors'
+import 'moment/locale/pt-br';
+import c from 'colors';
 
 const getTime = (data: any) => {
     let now: any = new Date();
@@ -14,34 +16,35 @@ setTimeout(function(){
     writeFile('itinerário.csv', data, () => {
         return console.log(`CSV Enviado com sucesso!`.green); 
     })
-
+    
 }, endIn);
 }
+
 
 export const toCSV = () => {
     let fields: any = ['horario de partida', 'primeira parada', 'segunda parada', 'horario de chegada'];
     let options: any = {fields}
 
     let now: any = new Date();
-    let startTime: any = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0, 0).toISOString();
-
+    let startTime: MomentInput | MomentCreationData = moment(now).format('YYYY-MM-DD HH:MM:SS')
     console.log(startTime);
     
-    let test = Date.parse(startTime)
-    console.log(test);
+    let test = startTime
+    /* console.log(test); */
     
 
     let stops: any = [test];
 
     for(let i: any = 1; i < 3; i++) {
-        let event = new Date(stops[i])
+        let event: MomentInput | MomentCreationData = moment(stops[i]).format('YYYY-MM-DD HH:MM:SS')
 
-        console.log(event);
-        console.log(new Date(event.getHours() + 1, event.getMinutes() + 30).toDateString());
+        /* console.log(event); */
         
-        let setTime: any = new Date(event.setHours((event.getHours() + 1), (event.getMinutes() + 30)))
+        let setTime: Duration = moment.duration(event).add({ hours: 1, minutes: 30 })
+        /* console.log(setTime); */
         
-        stops[i] = setTime.toISOString()
+        
+        stops[i] = setTime
         console.log(stops);
         
     }
