@@ -13,32 +13,38 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const router = require('express').Router();
-const passenger_1 = __importDefault(require("../../controllers/passenger"));
+const airPlanesControllers_1 = __importDefault(require("../../controllers/airPlanesControllers"));
 router.get('/list', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    passenger_1.default.findAll(req, res);
+    airPlanesControllers_1.default.findAll(req, res);
 }));
 router.get('/list/findOneByID=:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const params = req.params;
-    passenger_1.default.findOneById(params.id, req, res);
+    airPlanesControllers_1.default.findOneById(params.id, req, res);
 }));
-router.get('/list/findOneByCpf=:cpf', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get('/list/findOneByPlaneId=:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const params = req.params;
-    passenger_1.default.findOneByCPF(params.cpf, req, res);
+    airPlanesControllers_1.default.findOneByPlaneId(params.id, req, res);
 }));
-router.get('/list/findOneByEmail=:email', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const params = req.params;
-    passenger_1.default.findOneByEMAIL(params.email, req, res);
-}));
-router.post('/register', (req, res) => {
-    const data = req.body[0];
-    passenger_1.default.create(data, req, res);
-});
-router.put('/edit/findBy=:type&user=:user&field=:field&value=:value', (req, res) => {
+router.post('/register/Route=:id', (req, res) => {
     const data = req.params;
-    passenger_1.default.updateOne(data.type, data.field, data.value, data.user, req, res);
+    airPlanesControllers_1.default.create(data.id, req, res);
+});
+router.put('/edit/findOneByID=:id&newRouter=:router', (req, res) => {
+    const data = req.params;
+    console.log('data ', data.id);
+    airPlanesControllers_1.default.updateOne('id', data.router, data.id, req, res);
+});
+router.put('/edit/findOneByplaneId=:planeId&newRouter=:router', (req, res) => {
+    const data = req.params;
+    console.log('data ', data);
+    airPlanesControllers_1.default.updateOne('planeId', data.router, data.planeId, req, res);
 });
 router.delete('/delete/findOneByID=:id', (req, res) => {
     const data = req.params;
-    passenger_1.default.delete(data, req, res);
+    airPlanesControllers_1.default.deleteById(data.id, req, res);
+});
+router.delete('/delete/findOneByPlaneId=:planeId', (req, res) => {
+    const data = req.params;
+    airPlanesControllers_1.default.deleteByPlaneId(data.planeId, req, res);
 });
 exports.default = router;

@@ -8,7 +8,7 @@ module.exports = {
     "username": "postgres",
     "password": pg_passwd,
     "database": "flight-controller",
-    "host": "localhost",
+    "host": "db",
     "dialect": "postgres",
     "port": 5432
   },
@@ -16,15 +16,15 @@ module.exports = {
     "username": "postgres",
     "password": pg_passwd,
     "database": "flight-controller",
-    "host": "localhost",
+    "host": "db",
     "dialect": "postgres",
     "port": 5432
   },
   "production": {
     "username": "postgres",
-    "password": pg_passwd,
+    "password": '2682',
     "database": "flight-controller",
-    "host": "localhost",
+    "host": "db",
     "dialect": "postgres",
     "port": 5432
   }

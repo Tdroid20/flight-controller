@@ -29,7 +29,7 @@ router.put('/edit/findOneByID=:id', (req: Request, res: Response) => {
     const data= req.params;
     console.log(data)
 
-    // Routes.updateOne(data.type, data.field, data.value, data.user, req, res)
+    Routes.updateOne(data.type, data.field, data.value, data.user, req, res)
 });
 
 

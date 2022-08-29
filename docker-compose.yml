@@ -28,7 +28,7 @@ services:
     - /home/Tdroid/Documentos/case/flight-controller
 
  api: 
-  image: tdroid20/flight-controller:3.0
+  image: tdroid20/flight-controller:4.0
   ports: 
     - 3000:3000
   depends_on:

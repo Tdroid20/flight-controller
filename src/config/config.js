@@ -23,7 +23,7 @@ module.exports = {
     "username": "postgres",
     "password": pg_passwd,
     "database": "flight-controller",
-    "host": "localhost",
+    "host": "db",
     "dialect": "postgres",
     "port": 5432
   }

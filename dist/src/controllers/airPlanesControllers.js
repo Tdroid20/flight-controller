@@ -11,11 +11,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const uuid_1 = require("uuid");
 const db = require('../models');
-class Routes {
+class airPlanes {
     static findAll(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const result = yield db.Routes.findAll();
+                const result = yield db.airPlanes.findAll();
                 return res.status(200).json(result);
             }
             catch (err) {
@@ -25,18 +25,18 @@ class Routes {
     }
     static findOneById(id, req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const search = yield db.Routes.findByPk(id);
+            const search = yield db.airPlanes.findByPk(id);
             if (!search) {
                 return res.status(404).json('Não encontrado');
             }
             return res.status(200).json(search);
         });
     }
-    static findOneByRouterLine(line, req, res) {
+    static findOneByPlaneId(line, req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const search = yield db.Routes.findOne({
+            const search = yield db.airPlanes.findOne({
                 where: {
-                    routerLine: line
+                    planeId: line
                 }
             });
             if (!search) {
@@ -49,20 +49,12 @@ class Routes {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 console.log(Object.assign({}, _newRegister));
-                let { start, firstStop, secondStop, end, price } = Object.assign({}, _newRegister);
+                let { router_id } = Object.assign({}, _newRegister);
                 let validateRegister = [
-                    start,
-                    firstStop,
-                    secondStop,
-                    end,
-                    price
+                    router_id
                 ];
                 let tagRegister = [
-                    'start',
-                    'firstStop',
-                    'secondStop',
-                    'end',
-                    'price'
+                    'router_id',
                 ];
                 for (let i = 0; i < validateRegister.length; i++) {
                     if (validateRegister[i] === undefined) {
@@ -71,15 +63,11 @@ class Routes {
                 }
                 let NewRegister = {
                     id: (0, uuid_1.v4)(),
-                    start,
-                    firstStop,
-                    secondStop,
-                    end,
-                    price,
+                    router_id,
                     createdAt: new Date(),
                     updatedAt: new Date()
                 };
-                yield db.Routes.create(NewRegister, req, res);
+                yield db.airPlanes.create(NewRegister, req, res);
                 res.status(200).json(Object.assign({}, _newRegister));
             }
             catch (error) {
@@ -97,57 +85,40 @@ class Routes {
             }
         });
     }
-    static updateOne(findBy, field, value, user, req, res) {
+    static updateOne(findBy, value, user, req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             let User;
             if (findBy === 'id') {
-                User = yield db.passengers.findByPk(user);
-                console.log(User);
-            }
-            else if (findBy === 'routerLine') {
-                User = yield db.passengers.findOne({
+                User = yield db.airPlanes.findOne({
                     where: {
-                        routerLine: user
+                        id: user
+                    }
+                });
+            }
+            else if (findBy === 'planeId') {
+                User = yield db.airPlanes.findOne({
+                    where: {
+                        planeId: user
                     }
                 });
             }
             if (value === undefined)
                 return res.send(`Você não pode deixar o valor em branco`);
-            switch (field) {
-                case 'start': {
-                    User.start = value;
-                    yield User.save().then((x) => res.send(`Local de partida alterado com sucesso`));
-                    break;
-                }
-                case 'firstStop': {
-                    User.firstStop = value;
-                    yield User.save().then((x) => res.send(`Local primeira parada obrigatória alterada com sucesso`));
-                    break;
-                }
-                case 'secondStop': {
-                    User.firstStop = value;
-                    yield User.save().then((x) => res.send(`Local segunda parada obrigatória alterada com sucesso`));
-                    break;
-                }
-                case 'end': {
-                    User.firstStop = value;
-                    yield User.save().then((x) => res.send(`Local destino alterado com sucesso`));
-                    break;
-                }
-            }
+            User.router_id = value;
+            User.save().then((x) => res.send(`Rota alterada com sucesso`));
         });
     }
     static deleteById(user, req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let exist = yield db.Routes.findOne({
+                let exist = yield db.airPlanes.findOne({
                     where: {
-                        id: user.id
+                        id: user
                     }
                 });
                 if (exist === null)
                     return res.status(404).send(`Não encontrado`);
-                db.Routes.destroy({ where: { id: user.id } });
+                db.airPlanes.destroy({ where: { id: user } });
                 res.status(200).send('Rota removido do meu banco de dados');
             }
             catch (error) {
@@ -155,17 +126,17 @@ class Routes {
             }
         });
     }
-    static deleteByRouterLine(user, req, res) {
+    static deleteByPlaneId(user, req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                let exist = yield db.Routes.findOne({
+                let exist = yield db.airPlanes.findOne({
                     where: {
-                        routerLine: user.line
+                        planeId: user
                     }
                 });
                 if (exist === null)
                     return res.status(404).send(`Não encontrado`);
-                db.Routes.destroy({ where: { routerLine: user.line } });
+                db.airPlanes.destroy({ where: { planeId: user } });
                 res.send('Rota removido do meu banco de dados');
             }
             catch (error) {
@@ -174,4 +145,4 @@ class Routes {
         });
     }
 }
-exports.default = Routes;
+exports.default = airPlanes;

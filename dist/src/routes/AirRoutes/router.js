@@ -14,40 +14,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const router = require('express').Router();
 const routerController_1 = __importDefault(require("../../controllers/routerController"));
-/*
-=============================// GET //==============================
-*/
 router.get('/list', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    routerController_1.default.getAll(req, res);
+    routerController_1.default.findAll(req, res);
 }));
 router.get('/list/findOneByID=:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const params = req.params;
-    console.log(params.id);
     routerController_1.default.findOneById(params.id, req, res);
 }));
-/*
-=============================// POST //==============================
-*/
+router.get('/list/findOneByRouterLine=:line', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const params = req.params;
+    routerController_1.default.findOneByRouterLine(params.line, req, res);
+}));
 router.post('/register', (req, res) => {
     const data = req.body;
     routerController_1.default.create(data, req, res);
 });
-/*
-=============================// PUT //==============================
-*/
 router.put('/edit/findOneByID=:id', (req, res) => {
     const data = req.params;
     console.log(data);
-    res.send(`Não consegui editar o passageiro ${data.id} pois ainda não tenho uma database criada. Tente novamente em breve.`);
+    // Routes.updateOne(data.type, data.field, data.value, data.user, req, res)
 });
-/*
-=============================// DELETE //==============================
-*/
 router.delete('/delete/findOneByID=:id', (req, res) => {
     const data = req.params;
-    routerController_1.default.delete(data, req, res);
+    routerController_1.default.deleteById(data, req, res);
 });
-router.delete('/delete/all', (req, res) => {
-    routerController_1.default.deleteAll(req, res);
+router.delete('/delete/findOneByRouterLine=:line', (req, res) => {
+    const data = req.params;
+    routerController_1.default.deleteByRouterLine(data, req, res);
 });
 exports.default = router;

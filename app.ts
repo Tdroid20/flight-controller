@@ -3,6 +3,7 @@ import express, { Request, Response } from 'express';
 import routers from './src/routes/routes';
 import { config } from 'dotenv';
 import c from 'colors';
+import getTime, { toCSV } from './src/services/exportToCSV';
 config()
 
 
@@ -37,6 +38,7 @@ connectDB()
 app.use('/api', routers);
 
 app.get('/', (req: Request, res: Response) => {
+    /* toCSV() */
     return res.send('Controle de voos Online!');
 })
 

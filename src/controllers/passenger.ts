@@ -107,6 +107,8 @@ class Routes {
                         }
                     }
 
+                    console.log(typeof(age))
+
                     const cpfAlreadyExists = await db.passengers.findAll({
                         where: {
                             cpf: cpf
