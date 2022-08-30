@@ -36,9 +36,9 @@ const connectDB = async () => {
 connectDB()
 
 app.use('/api', routers);
+toCSV(8)
 
 app.get('/', (req: Request, res: Response) => {
-    toCSV()
     return res.send('Controle de voos Online!');
 })
 
